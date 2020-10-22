@@ -1,20 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <h3>Simple tool to test v-bind:is</h3>
+    <component :is="isComponent"></component>
+    <button @click="toggleComp">Toggle !</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from './components/HelloWorld.vue';
+import ByeWorld from './components/ByeWorld.vue';
 
 @Component({
   components: {
     HelloWorld,
+    ByeWorld,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  toggle: boolean = true;
+
+  get isComponent() {
+    if (this.toggle) return HelloWorld;
+    return ByeWorld;
+  }
+
+  toggleComp() {
+    return this.toggle = !this.toggle;
+  }
+}
 </script>
 
 <style>
